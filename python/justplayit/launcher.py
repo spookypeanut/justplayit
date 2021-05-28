@@ -4,34 +4,33 @@ import time
 
 from justplayit.mpdconnection import MPDConnection
 BOOKDIR = "/var/books"
-
-
 MPD = MPDConnection()
+# The number of seconds between every_so_often getting run
+SO_OFTEN = 20
+
 
 def main():
     log_format = '[%(asctime)s: %(levelname)s] %(message)s'
     logging.basicConfig(format=log_format, level=logging.DEBUG)
+    lastten = 0
     while True:
         every_second()
-        if time % 10 == 0:
-            every_tenseconds()
+        if time.time() - lastten > SO_OFTEN:
+            lastten = time.time()
+            every_so_often()
         else:
             time.sleep(1)
 
 
 def every_second():
-    ensure_playing()
+    MPD.ensure_playing()
+    logging.debug(MPD.currentsong())
 
 
-def every_tenseconds():
+def every_so_often():
     new_books = get_new_books()
     logging.info("New books: %s", new_books)
     MPD.add_to_playlist(new_books)
-
-
-def ensure_playing():
-    logging.debug("ensure_playing")
-    # raise NotImplementedError
 
 
 def get_all_books():
@@ -39,7 +38,7 @@ def get_all_books():
 
 
 def get_new_books():
-    old_tracks = set(MPD.get_tracks_on_playlist())
+    old_tracks = set(MPD.playlist())
     logging.info("%s tracks on playlist" % (len(old_tracks)))
     logging.debug("First 10: %s", list(old_tracks)[:10])
     all_books = get_all_books()
