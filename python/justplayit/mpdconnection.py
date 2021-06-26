@@ -4,7 +4,7 @@ from mpd.base import ConnectionError
 class MPDConnection(object):
     def __init__(self):
         self.client = MPDClient()
-        self.port = 6601
+        self.port = 6600
         self._connect()
 
     def _connect(self):
@@ -33,3 +33,6 @@ class MPDConnection(object):
         for eachone in to_add:
             self.client.add(eachone)
 
+    def ensure_playing(self):
+        self._ensure_connected()
+        #TODO
