@@ -1,0 +1,9 @@
+---
+
+- hosts: audiobooks
+  roles:
+    # I Have a "base" role that all machines I create get (htop, tmux, etc).
+    # It isn't necessary for creating an audiobooks machine, you can just
+    # comment it out
+    - base
+    - audiobooks

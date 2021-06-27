@@ -1,0 +1,4 @@
+---
+
+audiobook_dir: /var/audiobooks
+mpdconf: /etc/mpd.conf

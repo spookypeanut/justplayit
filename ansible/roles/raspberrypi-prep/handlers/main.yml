@@ -1,0 +1,5 @@
+---
+
+- name: reboot now
+  become: true
+  reboot:

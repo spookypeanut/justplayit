@@ -1,0 +1,10 @@
+---
+- name: "Add hbush user to new raspberry pi"
+  hosts: newpi
+  vars_files:
+    - new_user.yml
+  vars:
+    new_hostname: audiobooks
+  roles:
+    - role: raspberrypi-prep
+      become: true

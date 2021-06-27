@@ -1,0 +1,6 @@
+---
+# This is an example, create your own (and possibly encrypt it using
+# ansible-vault). The command to create the hashed password is:
+#   ansible all -i localhost, -m debug -a "msg={{ 'mypassword' | password_hash('sha512', 'thisismysalt') }}"
+new_username: "myuser"
+new_password: "$6$thisismysalt$QNxL5HBGxNuAtCMJx06SYwNdvxD4msevaptri1SeXPacWoSQSwfNoaUsWbXA3s2hz5SmTFCg4.Q8QrxllWpBI0"

@@ -1,0 +1,35 @@
+---
+
+- name: Remove pi user
+  user:
+    name: pi
+    state: absent
+  become: true
+
+- name: Install required packages
+  package:
+    name:
+      - git
+      - mpd
+      - python-mpd
+      - mpc
+  become: true
+
+- name: Make books directory
+  file:
+    path: "{{ audiobook_dir }}"
+    state: directory
+    mode: "0777"
+  become: true
+
+- name: Clone justplayit git repo
+  git:
+    repo: https://github.com/spookypeanut/justplayit.git
+    dest: /home/hbush/justplayit
+
+- name: Put audiobook dir in config
+  lineinfile:
+    path: "{{ mpdconf }}"
+    regexp: "^music_directory"
+    line: "music_directory     \"{{ audiobook_dir }}\""
+  become: true

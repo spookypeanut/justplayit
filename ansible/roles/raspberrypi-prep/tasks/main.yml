@@ -1,0 +1,25 @@
+---
+
+- name: Create new user
+  become: true
+  user:
+    name: "{{ new_username }}"
+    password: "{{ new_password }}"
+    groups: sudo
+    append: true
+
+- name: Copy ssh keys
+  # I copy over the whole .ssh directory. You may not want to do this, you may
+  # want to create a more traditional key pair, but I want this to work
+  # bidirectionally
+  copy:
+    src: "/home/{{ new_username }}/.ssh"
+    dest: "/home/{{ new_username }}"
+    owner: "{{ new_username }}"
+    group: "{{ new_username }}"
+    mode: "0700"
+
+- name: Rename host
+  hostname:
+    name: "{{ new_hostname }}"
+  notify: reboot now
