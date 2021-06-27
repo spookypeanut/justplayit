@@ -36,3 +36,6 @@ class MPDConnection(object):
     def ensure_playing(self):
         self._ensure_connected()
         #TODO
+
+    def __getattr__(self, attrname):
+        return getattr(self.client, attrname)
