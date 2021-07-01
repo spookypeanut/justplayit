@@ -33,3 +33,4 @@
     regexp: "^music_directory"
     line: "music_directory     \"{{ audiobook_dir }}\""
   become: true
+  notify: restart mpd
