@@ -34,6 +34,7 @@ def every_so_often():
 
 
 def get_all_books():
+    MPD.update()
     return sorted((os.path.join(BOOKDIR, a) for a in os.listdir(BOOKDIR)))
 
 
