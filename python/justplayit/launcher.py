@@ -3,7 +3,7 @@ import logging
 import time
 
 from justplayit.mpdconnection import MPDConnection
-BOOKDIR = "/var/books"
+BOOKDIR = "/var/audiobooks"
 MPD = MPDConnection()
 # The number of seconds between every_so_often getting run
 SO_OFTEN = 20
