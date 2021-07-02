@@ -34,7 +34,7 @@ def every_so_often():
 
 
 def get_all_books():
-    return sorted(os.listdir(BOOKDIR))
+    return sorted((os.path.join(BOOKDIR, a) for a in os.listdir(BOOKDIR)))
 
 
 def get_new_books():
