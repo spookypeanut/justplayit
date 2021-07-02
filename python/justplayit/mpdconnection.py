@@ -1,5 +1,4 @@
-from musicpd import MPDClient
-from musicpd.base import ConnectionError
+from musicpd import MPDClient, ConnectionError
 
 class MPDConnection(object):
     def __init__(self):
