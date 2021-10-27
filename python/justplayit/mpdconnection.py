@@ -34,7 +34,8 @@ class MPDConnection(object):
 
     def ensure_playing(self):
         self._ensure_connected()
-        #TODO
+        if self.client.status()["state"] != "play":
+            self.client.play()
 
     def __getattr__(self, attrname):
         return getattr(self.client, attrname)
