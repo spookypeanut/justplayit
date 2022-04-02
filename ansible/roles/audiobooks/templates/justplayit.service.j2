@@ -1,0 +1,15 @@
+[Unit]
+Description=Justplayit Simple Audiobook Player
+After=mpd.service
+StartLimitIntervalSec=0
+
+[Service]
+Type=simple
+Restart=always
+RestartSec=1
+User=justplayit
+Environment=PYTHONPATH={{ git_checkout_dir }}/python
+ExecStart=/usr/bin/env python3  -m justplayit.launcher
+
+[Install]
+WantedBy=multi-user.target

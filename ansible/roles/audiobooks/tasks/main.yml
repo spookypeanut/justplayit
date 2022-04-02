@@ -6,12 +6,17 @@
     state: absent
   become: true
 
+- name: Add justplayit user
+  become: true
+  user:
+    name: "justplayit"
+
 - name: Install required packages
   package:
     name:
       - git
       - mpd
-      - python-mpd
+      - python3-musicpd
       - mpc
   become: true
 
@@ -22,15 +27,28 @@
     mode: "0777"
   become: true
 
+- name: Copy example books into it
+  copy:
+    src: "audiobooks/"
+    dest: "{{ audiobook_dir }}"
+
 - name: Clone justplayit git repo
   git:
     repo: https://github.com/spookypeanut/justplayit.git
-    dest: /home/hbush/justplayit
+    dest: "{{ git_checkout_dir }}"
 
-- name: Put audiobook dir in config
-  lineinfile:
-    path: "{{ mpdconf }}"
-    regexp: "^music_directory"
-    line: "music_directory     \"{{ audiobook_dir }}\""
+- name: Replace config
+  template:
+    src: "mpd.conf.j2"
+    dest: "/etc/mpd.conf"
   become: true
-  notify: restart mpd
+  notify:
+    - restart mpd
+
+- name: Copy service into place
+  template:
+    src: "justplayit.service.j2"
+    dest: "/etc/systemd/system/justplayit.service"
+  become: true
+  notify:
+    - restart justplayit

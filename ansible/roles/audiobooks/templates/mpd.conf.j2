@@ -1,0 +1,27 @@
+# See the mpd.conf man page for a more detailed description of each parameter.
+
+music_directory     "{{ audiobook_dir }}"
+playlist_directory  "/var/lib/mpd/playlists"
+db_file             "/var/lib/mpd/tag_cache"
+log_file            "/var/log/mpd/mpd.log"
+pid_file            "/run/mpd/pid"
+state_file          "/var/lib/mpd/state"
+sticker_file        "/var/lib/mpd/sticker.sql"
+user                "mpd"
+bind_to_address     "localhost"
+state_file_interval "2"
+input {
+        plugin      "curl"
+}
+decoder {
+        plugin      "hybrid_dsd"
+        enabled     "no"
+}
+audio_output {
+    type            "alsa"
+    name            "My ALSA Device"
+    device          "hw:CARD=Headphones,DEV=0"
+    mixer_control   "Headphone"
+    mixer_index     "0"
+}
+filesystem_charset  "UTF-8"

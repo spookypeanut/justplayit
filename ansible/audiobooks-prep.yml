@@ -1,6 +1,7 @@
 ---
-- name: "Add hbush user to new raspberry pi"
-  hosts: newpi
+
+- name: "Minimal prep of a brand new rpi, to work with the main playbook"
+  hosts: new_pi
   vars_files:
     - new_user.yml
   vars:

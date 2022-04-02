@@ -1,4 +1,4 @@
 ---
 
 audiobook_dir: /var/audiobooks
-mpdconf: /etc/mpd.conf
+git_checkout_dir: "/home/{{ new_username }}/justplayit"
